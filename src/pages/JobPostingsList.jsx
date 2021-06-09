@@ -27,7 +27,7 @@ export default function JobPostingsList() {
 
                 <Table.Body>
                     {
-                        jobAdvertisement.map(jobAdvertisement => (
+                            jobAdvertisement.map(jobAdvertisement => (
                             <Table.Row key={jobAdvertisement.jobId}>
                                 <Table.Cell>{jobAdvertisement.employer.company_name}</Table.Cell>
                                 <Table.Cell>{jobAdvertisement.jobPosition.position_name}</Table.Cell>
