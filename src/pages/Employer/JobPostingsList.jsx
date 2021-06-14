@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Table } from 'semantic-ui-react'
-import JobPostingService from "../services/jobPostingService"
+import JobPostingService from "../../services/jobPostingService"
  
 export default function JobPostingsList() {
  
@@ -9,7 +9,7 @@ export default function JobPostingsList() {
   useEffect(()=>{
       let jobPostingService = new JobPostingService()
       jobPostingService.getJobPostings().then(result=>setJobPostings(result.data.data))
-  })
+  },[])
     return (
         <div>
             <Table fixed>
@@ -22,6 +22,7 @@ export default function JobPostingsList() {
                         <Table.HeaderCell>Son Başvuru Tarihi</Table.HeaderCell>
                         <Table.HeaderCell>Şehir</Table.HeaderCell>
                         <Table.HeaderCell>İş Detayı</Table.HeaderCell>
+                        <Table.HeaderCell>İş İlanı Durumu</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
 
@@ -34,8 +35,9 @@ export default function JobPostingsList() {
                                 <Table.Cell>{jobAdvertisement.numberOfPositions}</Table.Cell>
                                 <Table.Cell>{jobAdvertisement.releaseDate}</Table.Cell>
                                 <Table.Cell>{jobAdvertisement.applicationDeadline}</Table.Cell>
-                                <Table.Cell>{jobAdvertisement.city}</Table.Cell>
+                                <Table.Cell>{jobAdvertisement.city.ctyName}</Table.Cell>
                                 <Table.Cell>{jobAdvertisement.job_description}</Table.Cell>
+                                <Table.Cell>{jobAdvertisement.workingCondition}</Table.Cell>
                             </Table.Row>
                         ))
                     }
