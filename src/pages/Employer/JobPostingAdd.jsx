@@ -1,94 +1,135 @@
-import React from 'react'
-import { useFormik } from 'formik'
+import React, {useEffect, useState} from 'react'
+import { Formik } from 'formik'
 import * as Yup from 'yup'
 import JobPostingService from '../../services/employerService'
-import { Form, Header, Icon, Button } from 'semantic-ui-react'
+import CityService from '../../services/cityService'
+import { Form, Button, Header, Icon, Label } from 'semantic-ui-react'
+import { Select } from 'semantic-ui-react'
 
 export default function JobPostingAdd() {
-    const JobPositinSchema = Yup.object({
+    const validationSchema = Yup.object().shape({
         job_description: Yup.string(),
         salary: Yup.number(),
         numberOfPositions: Yup.number(),
-        releaseDate: Yup.number(),
-        applicationDeadline: Yup.number(),
+        releaseDate: Yup.date(),
+        applicationDeadline: Yup.date(),
         workingCondition: Yup.boolean(),
-       employer_id: Yup.number(),
+        employer_id: Yup.number(),
         city_id: Yup.number(),
         position_id: Yup.number()
 
     })
-    const { handleSubmit, handleChange, values, errors } = useFormik({
-        initialValues: {
-            job_description: '',
-            salary: '',
-            numberOfPositions: '',
-            releaseDate: '',
-            applicationDeadline: '',
-            workingCondition: '',
-            employer_id: '',
-            city_id: '',
-            position_id: ''
-        },
-        JobPositinSchema,
-        onSubmit: (values) => {
-            let jobPostingService = new JobPostingService()
-        alert(JSON.stringify(jobPostingService.EmployerJobPostingAdd(values)),null,2)
-            
-        }
-
-    })
+    const [city, setCity] = useState([])
+    useEffect(()=>{
+        let cityService = new CityService();
+        cityService.getCity().then(result => setCity(result.data.data))
+    },[])
+    
     return (
-        <div>
-            <Header as='h2' icon textAlign='center'>
-                <Icon name='plus' circular />
-                <Header.Content>İş İlanı Ekle</Header.Content>
-            </Header>
-            <form onSubmit={handleSubmit}>
-                <Form>
+
+        <Formik
+            initialValues={{
+                job_description:'',
+                salary: '',
+                numberOfPositions: '',
+                releaseDate: '',
+                applicationDeadline: '',
+                workingCondition: '',
+                employer_id: '',
+                city_id: 34,
+                position_id: 1
+            }}
+            validationSchema={validationSchema}
+            onSubmit={(values, { setSubmitting, setErrors, setFieldError, setStatus, resetForm }) => {
+                let jobPostingAdd = new JobPostingService();
+                jobPostingAdd.EmployerJobPostingAdd(values).then();
+                console.log(values);
+            }}
+        >
+
+            {({ handleSubmit, handleChange, values, handleBlur, errors }) => (
+
+                <Form onSubmit={handleSubmit}>
+                    <Header as='h2' icon textAlign='center'>
+                        <Icon name='plus' circular />
+                        <Header.Content>İş İlanı Ekle</Header.Content>
+                    </Header>
+
                     <Form.Field>
                         <input
                             type="text"
                             name="job_description"
                             placeholder="iş Açıklaması"
                             onChange={handleChange}
-                            values={values.job_description}
+                            value={values.job_description}
                         />
+
+                        {
+                            errors.job_description &&
+                            <Label basic color='red' pointing  >
+                                {errors.job_description}
+                            </Label>
+                        }
                     </Form.Field>
                     <Form.Field>
                         <input
-                            type="text"
+                            type="number"
                             name="salary"
                             placeholder="Maaş Bilgisi"
                             onChange={handleChange}
-                            values={values.salary}
+                            value={values.salary}
                         />
+                        {
+                            errors.salary &&
+                            <Label basic color='red' pointing  >
+                                {errors.salary}
+                            </Label>
+                        }
                     </Form.Field>
                     <Form.Field>
                         <input
-                            type="text"
+                            type="number"
                             name="numberOfPositions"
                             placeholder="İş Pozisyon Adedi"
                             onChange={handleChange}
-                            values={values.numberOfPositions}
+                            value={values.numberOfPositions}
                         />
+                        {
+                            errors.numberOfPositions &&
+                            <Label basic color='red' pointing  >
+                                {errors.numberOfPositions}
+                            </Label>
+                        }
                     </Form.Field>
                     <Form.Field>
                         <input
-                            type="text"
+                            type="date"
                             name="releaseDate"
                             placeholder="Yayın Tarihi"
                             onChange={handleChange}
-                            values={values.releaseDate}
+                            value={values.releaseDate}
                         />
+                        {
+                            errors.releaseDate &&
+                            <Label basic color='red' pointing  >
+                                {errors.releaseDate}
+                            </Label>
+                        }
                     </Form.Field>
                     <Form.Field>
                         <input
-                            type="text"
+                            type="date"
                             name="applicationDeadline"
                             placeholder="Son Başvuru Tarihi"
                             onChange={handleChange}
-                            values={values.applicationDeadline}
+                            value={values.applicationDeadline}
                         />
+                        {
+                            errors.applicationDeadline &&
+                            <Label basic color='red' pointing  >
+                                {errors.applicationDeadline}
+                            </Label>
+                        }
                     </Form.Field>
                     <Form.Field>
                         <input
@@ -96,39 +137,40 @@ export default function JobPostingAdd() {
                             name="workingCondition"
                             placeholder="iş ilanı Durumu"
                             onChange={handleChange}
-                            values={values.workingCondition}
+                            value={values.workingCondition}
                         />
+
+                        {
+                            errors.workingCondition &&
+                            <Label basic color='red' pointing  >
+                                {errors.workingCondition}
+                            </Label>
+                        }
                     </Form.Field>
                     <Form.Field>
                         <input
-                            type="text"
+                            type="number"
                             name="employer_id"
                             placeholder="iş ilanı Durumu"
                             onChange={handleChange}
-                            values={values.employer_id}
+                            value={values.employer_id}
                         />
+
+                        {
+                            errors.employer_id &&
+                            <Label basic color='red' pointing  >
+                                {errors.employer_id}
+                            </Label>
+                        }
+
                     </Form.Field>
-                    <Form.Field>
-                        <input
-                            type="text"
-                            name=" city_id"
-                            placeholder="iş ilanı Durumu"
-                            onChange={handleChange}
-                            values={values.city_id}
-                        />
-                    </Form.Field>
-                    <Form.Field>
-                        <input
-                            type="text"
-                            name="position_id"
-                            placeholder="iş ilanı Durumu"
-                            onChange={handleChange}
-                            values={values.position_id}
-                        />
-                    </Form.Field>
+                   
+                    <Button inverted color='blue' type='submit' >İş ilanını yayınla</Button>
                 </Form>
-                <Button inverted color='blue' type='submit' >İş ilanını yayınla</Button>
-            </form>
-        </div>
-    )
+
+            )}
+        </Formik>
+
+
+    );
 }
