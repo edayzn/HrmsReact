@@ -8,7 +8,7 @@ export default function Dashboard() {
         <div>
             <JobSearch/>
            <JobPostingAdd/>
-           <JobPostingsList/>
+          <JobPostingsList/>
         </div>
     )
 }

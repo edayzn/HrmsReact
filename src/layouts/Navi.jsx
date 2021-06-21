@@ -11,14 +11,18 @@ export default function Nive() {
           <Menu.Item
             name='İş Ara'
           />
-
+          <Menu.Item
+            name='İş İlanı Ekle'
+          />
           <Menu.Menu position='right'>
-            <Menu.Item>
-              <Button primary>Sign Up</Button>
-            </Menu.Item>
-            <Menu.Item>
-              <Button primary>Sign In</Button>
-            </Menu.Item>
+            <Button.Group>
+              <Button>Sign Up</Button>
+              <Menu.Item>
+                <Button.Or text='Or' />
+              </Menu.Item>
+              <Button positive>Sign In</Button>
+            </Button.Group>
+
           </Menu.Menu>
         </Container>
 

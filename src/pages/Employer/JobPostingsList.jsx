@@ -22,7 +22,7 @@ export default function JobPostingsList() {
                         <Table.HeaderCell>Son Başvuru Tarihi</Table.HeaderCell>
                         <Table.HeaderCell>Şehir</Table.HeaderCell>
                         <Table.HeaderCell>İş Detayı</Table.HeaderCell>
-                        <Table.HeaderCell>İş İlanı Durumu</Table.HeaderCell>
+                        <Table.HeaderCell>İş Durumu</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
 
@@ -37,7 +37,7 @@ export default function JobPostingsList() {
                                 <Table.Cell>{jobAdvertisement.applicationDeadline}</Table.Cell>
                                 <Table.Cell>{jobAdvertisement.city.ctyName}</Table.Cell>
                                 <Table.Cell>{jobAdvertisement.job_description}</Table.Cell>
-                                <Table.Cell>{jobAdvertisement.workingCondition}</Table.Cell>
+                                <Table.Cell>{jobAdvertisement.workingCondition.toString()}</Table.Cell>
                             </Table.Row>
                         ))
                     }

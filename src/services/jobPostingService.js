@@ -1,7 +1,11 @@
-import axios from "axios"
+import axios from './axios/axios'
 
-export default class JobPostingSercice{
-    getJobPostings(){
-        return axios.get("http://localhost:8080/api/jobadvertisement/getall")
-    }
+export default class JobPostingSercice {
+  
+  getJobPostings() {
+    return axios.get("jobadvertisement/getall");
+  }
+  jobPostingAdd(values) {
+    return axios.post("/jobadvertisement/add",values);
+  }
 }
