@@ -5,21 +5,19 @@ import JobPostingService from '../../services/jobPostingService'
 import EmployerService from "../../services/employerService"
 import CityService from '../../services/cityService'
 import jobPositionService from "../../services/jobPositionService"
+import WorkingTimeService from '../../services/workingTimeService'
+import WorkingTpyeService from '../../services/workingTypeService'
 import { Input, Button, Header, Icon, Segment, Dropdown } from 'semantic-ui-react'
 import swal from 'sweetalert';
 
 export default function JobPostingAdd() {
     let jobAdvertisementService = new JobPostingService();
-    const [jobAdverts, setJobAdverts] = useState([]);
     const [employers, setEmployers] = useState([]);
     const [cities, setCities] = useState([]);
     const [positions, setJobPosition] = useState([]);
-
-    
+    const [workingTimes, setworkingTime] = useState([]);
+    const [workingTypes, setworkingTypes] = useState([])
     useEffect(() => {
-        let jobAdvertisementService = new JobPostingService();
-        jobAdvertisementService.getJobPostings().then((result => setJobAdverts(result.data.data)));
-        
         let employerService = new EmployerService();
         employerService.getEmployer().then((result) => setEmployers(result.data.data));
 
@@ -28,6 +26,12 @@ export default function JobPostingAdd() {
 
         let positionService = new jobPositionService();
         positionService.getPosition().then((result) => setJobPosition(result.data.data));
+
+        let workingTimeService = new WorkingTimeService();
+        workingTimeService.getWorkingTime().then((result) => setworkingTime(result.data.data));
+
+        let workingTypeService = new WorkingTpyeService();
+        workingTypeService.getworkingType().then((result) => setworkingTypes(result.data.data));
 
     }, [])
     const getEmployers = employers.map((employer, index) => ({
@@ -46,7 +50,18 @@ export default function JobPostingAdd() {
         text: jobPosition.position_name,
         value: jobPosition.id,
     }));
+    const getWorkingTimes = workingTimes.map((workingTime, index) => ({
+        key: index,
+        text: workingTime.workingName,
+        value: workingTime.workingId,
+    }));
 
+    const getWorkingTypes = workingTypes.map((workingType, index) => ({
+        key: index,
+        text: workingType.workingTypeName,
+        value: workingType.workingTypeId,
+
+    }));
     const formik = useFormik({
         initialValues: {
             job_description: "",
@@ -58,7 +73,9 @@ export default function JobPostingAdd() {
             employer_id: "",
             city_id: "",
             position_id: "",
-           
+            working_id: "",
+            workiing_type_id: "",
+
         },
         validationSchema: Yup.object({
             job_description: Yup.string().required("Zorunlu alan"),
@@ -70,6 +87,8 @@ export default function JobPostingAdd() {
             employer_id: Yup.number().required("Zorunlu alan"),
             city_id: Yup.number().required("Zorunlu alan"),
             position_id: Yup.number().required("Zorunlu alan"),
+            working_id: Yup.number().required("Zorunlu alan"),
+            working_type_id: Yup.number().required("Zorunlu alan"),
         }),
         onSubmit: (values) => {
             let jobAdvert = {
@@ -79,16 +98,16 @@ export default function JobPostingAdd() {
                 releaseDate: values.releaseDate,
                 applicationDeadline: values.applicationDeadline,
                 workingCondition: values.workingCondition,
-                employer: {user_id: values.employer_id },
+                employer: { user_id: values.employer_id },
                 city: { cityId: values.city_id },
                 jobPosition: { id: values.position_id },
-                
+                workingTime: { workingId: values.working_id },
+                workingType: { workingTypeId: values.working_type_id },
             };
             console.log(jobAdvert)
-            jobAdvertisementService.jobPostingAdd(jobAdvert).then((result) =>console.log(result.data.message));
-            
+            jobAdvertisementService.jobPostingAdd(jobAdvert).then((result) => console.log(result.data.message));
+
             swal("Ekleme Başarılı!", `${values.jobId}`, "success");
-           
         },
 
     });
@@ -113,8 +132,8 @@ export default function JobPostingAdd() {
                                 <label>Şehir:</label>
                                 <Dropdown
                                     style={{
-                                        marginRight: "1em",
-                                        marginTop: "1em",
+                                        marginRight: "0,5em",
+                                        marginTop: "0,5em",
                                         fontWeight: "lighter",
                                     }}
                                     button
@@ -137,8 +156,8 @@ export default function JobPostingAdd() {
                                 <label>İş Pozisyonu:</label>
                                 <Dropdown
                                     style={{
-                                        marginRight: "1em",
-                                        marginTop: "1em",
+                                        marginRight: "0,5em",
+                                        marginTop: "0,5em",
                                         fontWeight: "lighter",
                                     }}
                                     button
@@ -158,11 +177,59 @@ export default function JobPostingAdd() {
                                 )}
                             </div>
                             <div className="divStyle">
+                                <label>Çalışma Zaman Türleri:</label>
+                                <Dropdown
+                                    style={{
+                                        marginRight: "0,5em",
+                                        marginTop: "0,5em",
+                                        fontWeight: "lighter",
+                                    }}
+                                    button
+                                    placeholder="Çalışma Zaman Türünü Seçiniz..."
+                                    fluid
+                                    search
+                                    selection
+                                    id="workingId"
+                                    options={getWorkingTimes}
+                                    onChange={(event, data) =>
+                                        formik.setFieldValue("working_id", data.value)
+                                    }
+                                    value={formik.values.workingId}
+                                />
+                                {formik.errors.working_id && formik.touched.working_id && (
+                                    <p style={{ color: "red" }}>{formik.errors.working_id}</p>
+                                )}
+                            </div>
+                            <div className="divStyle">
+                                <label>Çalışma Türleri:</label>
+                                <Dropdown
+                                    style={{
+                                        marginRight: "0,5em",
+                                        marginTop: "0,5em",
+                                        fontWeight: "lighter",
+                                    }}
+                                    button
+                                    placeholder="Çalışma Türünü Seçiniz..."
+                                    fluid
+                                    search
+                                    selection
+                                    id="workingTypeId"
+                                    options={getWorkingTypes}
+                                    onChange={(event, data) =>
+                                        formik.setFieldValue("working_type_id", data.value)
+                                    }
+                                    value={formik.values.workingTypeId}
+                                />
+                                {formik.errors.working_type_id && formik.touched.working_type_id && (
+                                    <p style={{ color: "red" }}>{formik.errors.working_type_id}</p>
+                                )}
+                            </div>
+                            <div className="divStyle">
                                 <label>İş ilanı Yayınlayan Firma:</label>
                                 <Dropdown
                                     style={{
-                                        marginRight: "1em",
-                                        marginTop: "1em",
+                                        marginRight: "0,5em",
+                                        marginTop: "0,5em",
                                         fontWeight: "lighter",
                                     }}
                                     button
@@ -201,7 +268,7 @@ export default function JobPostingAdd() {
                                     id="numberOfPositions"
                                     placeholder="Alınacak Personel Sayısı..."
                                     fluid
-                                    style={{ marginRight: "1em", marginTop: "1em" }}
+                                    style={{ marginRight: "0,5em", marginTop: "0,5em" }}
                                     onChange={formik.handleChange}
                                     value={formik.values.numberOfPositions}
                                 ></Input>
@@ -219,7 +286,7 @@ export default function JobPostingAdd() {
                                     id="releaseDate"
                                     placeholder="Yayın Tarihi..."
                                     fluid
-                                    style={{ marginRight: "1em", marginTop: "1em" }}
+                                    style={{ marginRight: "0,5em", marginTop: "0,5em" }}
                                     onChange={formik.handleChange}
                                     value={formik.values.releaseDate}
                                 ></Input>
@@ -234,7 +301,7 @@ export default function JobPostingAdd() {
                                     id="applicationDeadline"
                                     placeholder="Son Başvuru Tarihi..."
                                     fluid
-                                    style={{ marginRight: "1em", marginTop: "1em" }}
+                                    style={{ marginRight: "0,5em", marginTop: "0,5em" }}
                                     onChange={formik.handleChange}
                                     value={formik.values.applicationDeadline}
                                 ></Input>
@@ -242,14 +309,14 @@ export default function JobPostingAdd() {
                                     <p style={{ color: "red" }}>{formik.errors.applicationDeadline}</p>
                                 )}
                             </div>
-                            
+
                             <div className="divStyle">
                                 <label>Açıklama:</label>
                                 <Input
                                     id="job_description"
                                     placeholder="Açıklama..."
                                     fluid
-                                    style={{ marginRight: "1em", marginTop: "1em" }}
+                                    style={{ marginRight: "0,5em", marginTop: "0,5em" }}
                                     onChange={formik.handleChange}
                                     value={formik.values.job_description}
                                 ></Input>
@@ -263,7 +330,7 @@ export default function JobPostingAdd() {
                                     id="workingCondition"
                                     placeholder="Açıklama..."
                                     fluid
-                                    style={{ marginRight: "1em", marginTop: "1em" }}
+                                    style={{ marginRight: "0,5em", marginTop: "0,5em" }}
                                     onChange={formik.handleChange}
                                     value={formik.values.workingCondition}
                                 ></Input>

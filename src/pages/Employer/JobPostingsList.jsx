@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { Table } from 'semantic-ui-react'
 import JobPostingService from "../../services/jobPostingService"
- 
+
 export default function JobPostingsList() {
- 
+
     const [jobAdvertisement, setJobPostings] = useState([]);
 
-  useEffect(()=>{
-      let jobPostingService = new JobPostingService()
-      jobPostingService.getJobPostings().then(result=>setJobPostings(result.data.data))
-  },[])
+    useEffect(() => {
+        let jobPostingService = new JobPostingService()
+        jobPostingService.getJobPostings().then(result => setJobPostings(result.data.data))
+    }, [])
     return (
         <div>
             <Table fixed>
@@ -22,13 +22,14 @@ export default function JobPostingsList() {
                         <Table.HeaderCell>Son Başvuru Tarihi</Table.HeaderCell>
                         <Table.HeaderCell>Şehir</Table.HeaderCell>
                         <Table.HeaderCell>İş Detayı</Table.HeaderCell>
+                        <Table.HeaderCell>Çalışma Zaman Türü</Table.HeaderCell>
                         <Table.HeaderCell>İş Durumu</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
 
                 <Table.Body>
                     {
-                            jobAdvertisement.map(jobAdvertisement => (
+                        jobAdvertisement.map(jobAdvertisement => (
                             <Table.Row key={jobAdvertisement.jobId}>
                                 <Table.Cell>{jobAdvertisement.employer.company_name}</Table.Cell>
                                 <Table.Cell>{jobAdvertisement.jobPosition.position_name}</Table.Cell>
@@ -37,6 +38,7 @@ export default function JobPostingsList() {
                                 <Table.Cell>{jobAdvertisement.applicationDeadline}</Table.Cell>
                                 <Table.Cell>{jobAdvertisement.city.ctyName}</Table.Cell>
                                 <Table.Cell>{jobAdvertisement.job_description}</Table.Cell>
+                                <Table.Cell>{jobAdvertisement.workingTime.workingName}</Table.Cell>
                                 <Table.Cell>{jobAdvertisement.workingCondition.toString()}</Table.Cell>
                             </Table.Row>
                         ))
