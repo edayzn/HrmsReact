@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useFormik } from 'formik'
+import { useFormik,Form } from 'formik'
 import * as Yup from 'yup'
 import JobPostingService from '../../services/jobPostingService'
 import EmployerService from "../../services/employerService"
@@ -7,6 +7,7 @@ import CityService from '../../services/cityService'
 import jobPositionService from "../../services/jobPositionService"
 import WorkingTimeService from '../../services/workingTimeService'
 import WorkingTpyeService from '../../services/workingTypeService'
+import HrmsTextInput from '../../utilities/customFormControls/HrmsTextInput'
 import { Input, Button, Header, Icon, Segment, Dropdown } from 'semantic-ui-react'
 import swal from 'sweetalert';
 
@@ -117,6 +118,7 @@ export default function JobPostingAdd() {
                 <Icon name='plus' circular />
                 <Header.Content>İş İlanı Ekle</Header.Content>
             </Header>
+            
             <Segment.Group>
                 <Segment color="blue" key="blue"></Segment>
                 <Segment>
@@ -264,6 +266,7 @@ export default function JobPostingAdd() {
                             </div>
                             <div className="divStyle">
                                 <label>Alınacak Personel Sayısı:</label>
+                                
                                 <Input
                                     id="numberOfPositions"
                                     placeholder="Alınacak Personel Sayısı..."
