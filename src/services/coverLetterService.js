@@ -9,5 +9,7 @@ export default class coverLetterService {
     add(values){
         return axios.post("/coverletters/addCoverLetter",values)
     }
-    
+    update(values){
+        return axios.post("/coverletters/update",values);
+    }
 }

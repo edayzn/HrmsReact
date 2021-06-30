@@ -13,6 +13,8 @@ import ComputerSkillAdd from '../pages/JobSeeker/ComputerSkillAdd';
 import CoverLetterAdd from '../pages/JobSeeker/CoverLetterAdd';
 import EducationInformationAdd from '../pages/JobSeeker/EducationInformationAdd';
 import PersonelAdd from '../pages/SystemPersonel/PersonelAdd';
+import CoverLetterUpdate from '../pages/JobSeeker/CoverLetterUpdate';
+import CoverLetter from '../pages/JobSeeker/CoverLetter';
 export default function Dashboard() {
     return (
         <div>
@@ -29,7 +31,9 @@ export default function Dashboard() {
             <Route path="/computerSkillAdd" component={ComputerSkillAdd} />
             <Route exact path="/cv" component={CvList} />
             <Route path="/cvDetail" component={CvDetail} />
+            <Route exact path="/coverLetter" component={CoverLetter}/>
             <Route path="/coverLetterAdd" component={CoverLetterAdd}/>
+            <Route path="/coverLetterUpdate" component={CoverLetterUpdate}/>
             <Route path="/education" component={EducationInformationAdd}></Route>
             <Route path="/personel" component={PersonelAdd}></Route>
             {/*<JobPostingAdd/>

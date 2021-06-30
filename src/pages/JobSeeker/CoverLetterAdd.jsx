@@ -16,7 +16,7 @@ export default function CoverLetterAdd() {
         user_id: Yub.number().required("Zorunlu alan"),
         coverLetter: Yub.string().required("Zoruunlu alan")
     })
-
+    
     return (
         <div>
             <Formik
@@ -37,6 +37,8 @@ export default function CoverLetterAdd() {
                     <Button color="brown" type="submit">Ekle</Button>
                 </Form>
             </Formik>
+
         </div>
+        
     )
 }

@@ -11,7 +11,7 @@ export default function PersonelAdd() {
         firstName: "",
         lastName: "",
         e_mail: "",
-        password: ""
+        password: "",
     }
     const schema = Yub.object({
         firstName: Yub.string().required("Zorunlu Alan"),
@@ -37,7 +37,7 @@ export default function PersonelAdd() {
                                 firstName: values.firstName,
                                 lastName: values.lastName,
                                 e_mail: values.e_mail,
-                                password: values.password
+                                password: values.password,
                             }
                             personelService.add(systemPersonel).then((result) => console.log(result.data.message));
                         }}
