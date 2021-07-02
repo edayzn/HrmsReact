@@ -1,6 +1,5 @@
 import React from 'react'
 import { Dropdown, Menu } from 'semantic-ui-react'
-import SignedOut from './SignedOut'
 
 export default function SignedIn({signOut}) {
     return (

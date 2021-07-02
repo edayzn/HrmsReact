@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useFormik,Form } from 'formik'
+import { useFormik} from 'formik'
 import * as Yup from 'yup'
 import JobPostingService from '../../services/jobPostingService'
 import EmployerService from "../../services/employerService"
@@ -7,7 +7,6 @@ import CityService from '../../services/cityService'
 import jobPositionService from "../../services/jobPositionService"
 import WorkingTimeService from '../../services/workingTimeService'
 import WorkingTpyeService from '../../services/workingTypeService'
-import HrmsTextInput from '../../utilities/customFormControls/HrmsTextInput'
 import { Input, Button, Header, Icon, Segment, Dropdown } from 'semantic-ui-react'
 import swal from 'sweetalert';
 

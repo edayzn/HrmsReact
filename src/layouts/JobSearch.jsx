@@ -9,7 +9,7 @@ import { Formik, Form } from 'formik'
 import HrmsDropdown from '../utilities/customFormControls/HrmsDropdown.jsx'
 import { useHistory } from "react-router";
 export default function JobSearch() {
-    let jobPostingService = new JobPostingService();
+    
     const [cities, setCity] = useState([])
     const [workingTimes, setWorkingTime] = useState([])
     const history = useHistory();
@@ -32,8 +32,8 @@ export default function JobSearch() {
     }));
 
     const initialValues = {
-        cityId: 0,
-        workingId: 0,
+        cityId: "",
+        workingId: "",
     }
     const pageInitialValues = {
         pageNo: 1,
@@ -48,7 +48,7 @@ export default function JobSearch() {
         cityId: Yub.number(),
         workingId: Yub.number(),
     });
-   
+
     const paginations = [
         { key: 1, text: 5, value: 5 },
         { key: 2, text: 10, value: 10 },
@@ -58,17 +58,24 @@ export default function JobSearch() {
     ];
     function handleFilter(values) {
         if (values.cityId && values.workingId) {
-            jobPostingService.getCityIdAndWorkingTimeId(values.cityId, values.workingId);
+            history.push(
+                `/jobpostings/cityId/${values.cityId}/workingId/${values.workingId}`
+            )
         }
         else if (values.workingId) {
-            jobPostingService.getWorkingId(values.workingId);
+            history.push(`/jobpostings/workingId/${values.workingId}`);
         }
         else if (values.cityId) {
-            jobPostingService.getCityId(values.cityId);
+            history.push(`/jobpostings/cityId/${values.cityId}`
+            );
         }
+        window.location.reload(false);
+       
     }
     function handlePage(values) {
-        jobPostingService.getPage(values.pageNo, values.pageSize);
+        history.push(
+            `/jobpostings/getallbypage/pageNo/${values.pageNo}/pageSize/${values.pageSize}`
+        );
     }
     return (
         <div>
@@ -136,7 +143,7 @@ export default function JobSearch() {
                                             />
                                         </Grid.Column>
                                         <Grid.Column width={3} style={{ paddingLeft: "0" }}>
-                                            <Button 
+                                            <Button
                                                 fluid
                                                 icon="arrow alternate circle right outline"
                                                 primary

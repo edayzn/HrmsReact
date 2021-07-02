@@ -15,6 +15,7 @@ import EducationInformationAdd from '../pages/JobSeeker/EducationInformationAdd'
 import PersonelAdd from '../pages/SystemPersonel/PersonelAdd';
 import CoverLetterUpdate from '../pages/JobSeeker/CoverLetterUpdate';
 import CoverLetter from '../pages/JobSeeker/CoverLetter';
+import PersonelUpdate from '../pages/SystemPersonel/PersonelUpdate';
 export default function Dashboard() {
     return (
         <div>
@@ -28,6 +29,10 @@ export default function Dashboard() {
             <Route exact path="/    " component={JobPostingsList} />
             <Route exact path="/jobposting/:id" component={JobPostingDetail} />
             <Route exact path="/jobpostingAdd" component={JobPostingAdd} />
+            <Route exact path="/jobpostings/cityId/:cityId" component={JobPostingsList}/>
+            <Route exact path="/jobpostings/workingId/:workingId" component={JobPostingsList}/>
+            <Route exact path="/jobpostings/cityId/:cityId/workingId/:workingId" component={JobPostingsList}/>
+            <Route exact path="/jobpostings/getallbypage/pageNo/:pageNo/pageSize/:pageSize" component={JobPostingsList}/>
             <Route exact path="/computerSkillAdd" component={ComputerSkillAdd} />
             <Route exact path="/cv" component={CvList} />
             <Route path="/cvDetail" component={CvDetail} />
@@ -35,8 +40,8 @@ export default function Dashboard() {
             <Route path="/coverLetterAdd" component={CoverLetterAdd}/>
             <Route path="/coverLetterUpdate" component={CoverLetterUpdate}/>
             <Route path="/education" component={EducationInformationAdd}></Route>
-            <Route path="/personel" component={PersonelAdd}></Route>
-            <Route path="/jobpostings/cityId/:cityId" component={JobSearch}></Route>
+            <Route exact path="/personel" component={PersonelAdd}></Route>
+            <Route exact path="/personelUpdate" component={PersonelUpdate}></Route>
             {/*<JobPostingAdd/>
           <JobPostingsList/> */}
         </div>

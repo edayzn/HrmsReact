@@ -2,7 +2,7 @@ import React from 'react'
 import PersonelService from '../../services/personelService';
 import * as Yub from 'yup'
 import { Formik, Form } from 'formik'
-import { Button, Header, Icon, Segment } from 'semantic-ui-react'
+import { Button, Header, Icon, Segment, Label } from 'semantic-ui-react'
 import HrmsTextInput from '../../utilities/customFormControls/HrmsTextInput';
 export default function PersonelAdd() {
     let personelService = new PersonelService();
@@ -18,7 +18,7 @@ export default function PersonelAdd() {
         lastName: Yub.string().required("Zorunlu Alan"),
         e_mail: Yub.string().required("Zorunlu Alan"),
         password: Yub.string().required("Zorunlu Alan"),
-    })
+    });
 
     return (
         <div>
@@ -39,16 +39,21 @@ export default function PersonelAdd() {
                                 e_mail: values.e_mail,
                                 password: values.password,
                             }
+
                             personelService.add(systemPersonel).then((result) => console.log(result.data.message));
                         }}
                     >
-                        <Form className="ui form" onSubmit={Formik.handleSubmit}>
-                            <HrmsTextInput type="text" name="firstName" planceholder="Ad" onChange={Formik.handleChange} value={Formik.firstName}></HrmsTextInput>
-                            <HrmsTextInput type="text" name="lastName" planceholder="Soyad" onChange={Formik.handleChange} value={Formik.lastName}></HrmsTextInput>
-                            <HrmsTextInput type="text" name="e_mail" planceholder="E-mail" onChange={Formik.handleChange} value={Formik.e_mail}></HrmsTextInput>
-                            <HrmsTextInput type="text" name="password" planceholder="Şifre" onChange={Formik.handleChange} value={Formik.password}></HrmsTextInput>
-                            <Button color="brown" type="submit">Ekle</Button>
-                        </Form>
+                        {({
+                            values,handleChange,handleSubmit,
+                        }) => (
+                            <form className="ui form" onSubmit={handleSubmit}>
+                                <HrmsTextInput type="text" name="firstName" placeholder="Ad" onChange={handleChange} value={values.firstName}></HrmsTextInput>
+                                <HrmsTextInput type="text" name="lastName" placeholder="Soyad" onChange={handleChange} value={values.lastName}></HrmsTextInput>
+                                <HrmsTextInput type="text" name="e_mail" placeholder="E-mail" onChange={handleChange} value={values.e_mail}></HrmsTextInput>
+                                <HrmsTextInput type="text" name="password" placeholder="Şifre" onChange={handleChange} value={values.password}></HrmsTextInput>
+                                <Button color="brown" type="submit">Ekle</Button>
+                            </form>
+                        )}
                     </Formik>
                 </Segment>
             </Segment.Group>

@@ -9,8 +9,8 @@ export default function HrmsDropdown({...props}) {
             <FormField>
             <select {...field} {...props} >
                     <option defaultValue value="">{props.placeholder}</option>
-                    {props.options.map((option) => (
-                        <option key={option.value} value={option.value}>{option.text}</option>
+                    {props.options.map((option,index) => (
+                        <option key={index} value={option.value}>{option.text}</option>
                     ))}
                 </select>
                 {meta.touched && !!meta.error ? (<Label pointing basic color="red" content={meta.error}></Label>):null}

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import JobPostingService from "../../services/jobPostingService"
 import { useParams } from 'react-router';
+import { useHistory } from 'react-router';
 import { Icon, Button, Divider, Grid, Pagination } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
 import JobSearch from '../../layouts/JobSearch';
 export default function JobPostingsList() {
 
-
+const history= useHistory();
     const [jobPostings, setJobPostings] = useState([]);
     const [jobPostingsCount, setJobPostingsCount] = useState([]);
     const [render, setRender] = useState(false);
@@ -15,8 +16,8 @@ export default function JobPostingsList() {
     useEffect(() => {
         let jobPostingService = new JobPostingService();
         jobPostingService.getJobPostings().then(result => setJobPostings(result.data.data));
-        if (cityId && workingId) {
-            jobPostingService.getCityIdAndWorkingTimeId(cityId, workingId).then((result) => setJobPostings(result.data.data));
+        if (cityId & workingId) {
+            jobPostingService.getCityIdAndWorkingTimeId(cityId,workingId).then((result) => setJobPostings(result.data.data));
         } else if (cityId) {
             jobPostingService.getCityId(cityId).then((result) => setJobPostings(result.data.data));
         } else if (workingId) {
@@ -32,8 +33,10 @@ export default function JobPostingsList() {
 
 
     function handlePagination(pageNo) {
-        let jobService = new JobPostingService()
-        jobService.getPage(pageNo, pageSize);
+        history.push(
+            `/jobpostings/getallbypage/pageNo/${pageNo}/pageSize/${pageSize}`
+          );
+         window.location.reload(false);
     }
     return (
         <div>
@@ -45,8 +48,8 @@ export default function JobPostingsList() {
             </div>
             <Grid columns={3} style={{ marginTop: "30px" }}>
                 {
-                    jobPostings.map((jobPosting, index) => (
-                        <Grid.Column style={{ paddingTop: "0px" }} key={jobPosting.jobId}>
+                    jobPostings.map((jobPosting) => (
+                        <Grid.Column style={{ paddingTop: "0px" }} key={jobPosting.jobId} >
                             <div>
                                 <div>
                                     <div className="job-posting-card-header">
@@ -70,7 +73,7 @@ export default function JobPostingsList() {
                                     </div>
                                 </div>
                                 <div className="job-posting-card-detail-button">
-                                    <Button
+                                    <Button 
                                         primary as={NavLink} to={`/jobposting/${jobPosting.jobId}`}>
                                         <Icon
                                             name="briefcase"
