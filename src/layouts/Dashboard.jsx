@@ -19,16 +19,16 @@ export default function Dashboard() {
     return (
         <div>
 
-            {/*  <JobSearch/>
-            <WorkingTimeAdd/>
+           {/*  <JobSearch/>
+             <WorkingTimeAdd/>
             <WorkingTypeAdd/>
             <ComputerSkill/>
            <ComputerSkillUpdate/> */}
             <Route exact path="/" component={JobPostingsList} />
             <Route exact path="/    " component={JobPostingsList} />
-            <Route path="/jobposting/:id" component={JobPostingDetail} />
-            <Route path="/jobpostingAdd" component={JobPostingAdd} />
-            <Route path="/computerSkillAdd" component={ComputerSkillAdd} />
+            <Route exact path="/jobposting/:id" component={JobPostingDetail} />
+            <Route exact path="/jobpostingAdd" component={JobPostingAdd} />
+            <Route exact path="/computerSkillAdd" component={ComputerSkillAdd} />
             <Route exact path="/cv" component={CvList} />
             <Route path="/cvDetail" component={CvDetail} />
             <Route exact path="/coverLetter" component={CoverLetter}/>
@@ -36,6 +36,7 @@ export default function Dashboard() {
             <Route path="/coverLetterUpdate" component={CoverLetterUpdate}/>
             <Route path="/education" component={EducationInformationAdd}></Route>
             <Route path="/personel" component={PersonelAdd}></Route>
+            <Route path="/jobpostings/cityId/:cityId" component={JobSearch}></Route>
             {/*<JobPostingAdd/>
           <JobPostingsList/> */}
         </div>
