@@ -16,6 +16,7 @@ import PersonelAdd from '../pages/SystemPersonel/PersonelAdd';
 import CoverLetterUpdate from '../pages/JobSeeker/CoverLetterUpdate';
 import CoverLetter from '../pages/JobSeeker/CoverLetter';
 import PersonelUpdate from '../pages/SystemPersonel/PersonelUpdate';
+import JobSeeker from '../pages/JobSeeker/JobSeeker';
 export default function Dashboard() {
     return (
         <div>
@@ -33,6 +34,7 @@ export default function Dashboard() {
             <Route exact path="/jobpostings/workingId/:workingId" component={JobPostingsList}/>
             <Route exact path="/jobpostings/cityId/:cityId/workingId/:workingId" component={JobPostingsList}/>
             <Route exact path="/jobpostings/getallbypage/pageNo/:pageNo/pageSize/:pageSize" component={JobPostingsList}/>
+            <Route exact path="/jobSeeker" component={JobSeeker}/>
             <Route exact path="/computerSkillAdd" component={ComputerSkillAdd} />
             <Route exact path="/cv" component={CvList} />
             <Route path="/cvDetail" component={CvDetail} />
