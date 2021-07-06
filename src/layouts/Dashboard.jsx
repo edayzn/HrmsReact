@@ -7,16 +7,17 @@ import WorkingTimeAdd from '../pages/SystemPersonel/WorkingTimeAdd';
 import WorkingTypeAdd from '../pages/SystemPersonel/WorkingTypeAdd';
 import { Route } from 'react-router';
 import JobPostingDetail from '../pages/Employer/JobPostingDetail';
-import CvList from '../pages/JobSeeker/CvList';
+import Cv from '../pages/JobSeeker/Cv';
 import CvDetail from '../pages/JobSeeker/CvDetail';
 import ComputerSkillAdd from '../pages/JobSeeker/ComputerSkillAdd';
 import CoverLetterAdd from '../pages/JobSeeker/CoverLetterAdd';
 import EducationInformationAdd from '../pages/JobSeeker/EducationInformationAdd';
 import PersonelAdd from '../pages/SystemPersonel/PersonelAdd';
-import CoverLetterUpdate from '../pages/JobSeeker/CoverLetterUpdate';
+import CoverLetterUpdate from '../pages/JobSeeker/CvUpdate/CoverLetterUpdate';
 import CoverLetter from '../pages/JobSeeker/CoverLetter';
 import PersonelUpdate from '../pages/SystemPersonel/PersonelUpdate';
 import JobSeeker from '../pages/JobSeeker/JobSeeker';
+import EducationInformationUpdate from '../pages/JobSeeker/CvUpdate/EducationInformationUpdate';
 export default function Dashboard() {
     return (
         <div>
@@ -36,7 +37,7 @@ export default function Dashboard() {
             <Route exact path="/jobpostings/getallbypage/pageNo/:pageNo/pageSize/:pageSize" component={JobPostingsList}/>
             <Route exact path="/jobSeeker" component={JobSeeker}/>
             <Route exact path="/computerSkillAdd" component={ComputerSkillAdd} />
-            <Route exact path="/cv" component={CvList} />
+            <Route exact path="/cv" component={Cv} />
             <Route path="/cvDetail" component={CvDetail} />
             <Route exact path="/coverLetter" component={CoverLetter}/>
             <Route path="/coverLetterAdd" component={CoverLetterAdd}/>
@@ -44,6 +45,7 @@ export default function Dashboard() {
             <Route path="/education" component={EducationInformationAdd}></Route>
             <Route exact path="/personel" component={PersonelAdd}></Route>
             <Route exact path="/personelUpdate" component={PersonelUpdate}></Route>
+            <Route exact path="/educationInformationUpdate" component={EducationInformationUpdate}/>
             {/*<JobPostingAdd/>
           <JobPostingsList/> */}
         </div>

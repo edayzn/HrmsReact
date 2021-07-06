@@ -13,7 +13,7 @@ export default function HrmsTextInput({ ...props }) {
                     fluid="true"
                     style={{ marginRight: "1em", marginTop: "1em" }} />
                 {meta.touched && !!meta.error ? (
-                    <Label pointing basic color="red" content={meta.error}></Label>
+                    <Label  pointing basic color="red" content={meta.error}></Label>
                 ) : null}
             </FormField>
         </div>

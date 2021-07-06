@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import CoverLetterService from '../../services/coverLetterService'
+import CoverLetterService from '../../../services/coverLetterService'
 import { Formik, Form } from 'formik'
 import { Button, Modal, Divider } from 'semantic-ui-react'
 import * as Yub from 'yup'
-import HrmsTextInput from '../../utilities/customFormControls/HrmsTextInput'
+import HrmsTextInput from '../../../utilities/customFormControls/HrmsTextInput'
 import { useEffect } from 'react'
-import coverLetterService from '../../services/coverLetterService'
+import coverLetterService from '../../../services/coverLetterService'
 
 export default function CoverLetterUpdate(props) {
   let coverlettereService = new CoverLetterService();
@@ -18,7 +18,7 @@ export default function CoverLetterUpdate(props) {
 
   function handleUpdate(values) {
     coverlettereService.update(values);
-
+    
 
   }
   const initialValues = {

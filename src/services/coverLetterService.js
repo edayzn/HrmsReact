@@ -11,4 +11,7 @@ export default class coverLetterService {
     update(values){
         return axios.post("/coverletters/update",values);
     }
+    getdByJobseeker(userId){
+        return axios.get(`/coverletters/jobSeekerId?userId=${userId}`)
+    }
 }

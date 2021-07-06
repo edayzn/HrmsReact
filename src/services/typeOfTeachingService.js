@@ -2,9 +2,9 @@ import axios from "./axios/axios";
 
 export default class TypeOfTeachingService{
     getAll(){
-        return axios.get("socialAccount/getAll")
+        return axios.get("typeOfTeaching/getAll")
     }
     add(values){
-        return axios.post("socialAccount/add",values)
+        return axios.post("typeOfTeaching/add",values)
     }
 }
